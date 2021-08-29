@@ -28,7 +28,7 @@ xampp - window Local server
 Clone repo.
 
 ```bash
-pip install foobar
+https://github.com/thiruraje/bike-service.git
 ```
 Install Composer
 
