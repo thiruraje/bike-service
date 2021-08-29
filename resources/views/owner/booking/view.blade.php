@@ -1,9 +1,9 @@
 @extends('owner.layout.master')
 
 @inject('cutomer_model', 'App\Customer')
+@inject('service_model', 'App\Service')
 
 @section('content')
-
 <div class="row">
         <div class="col-xs-12">
             <div class="box box-info">
@@ -20,9 +20,9 @@
                                 <thead>
                                     <tr>
                                         <th>Customer Name</th>
-                                        <th>Mobile</th>
                                         <th>Vehicle Name</th>
                                         <th>Booking Date</th>
+                                        <th>Services</th>
                                         <th>Status</th>
                                         <th>Action</th>
                                     </tr>
@@ -31,9 +31,13 @@
                                     @foreach($bookings as $booking)
                                         <tr>
                                             <td>{{ $cutomer_model->cus_data($booking->cus_id)->name }}</td>
-                                            <td>{{ $cutomer_model->cus_data($booking->cus_id)->mobile }}</td>
                                             <td>{{ $booking->vehicle_name }}</td>
                                             <td>{{ $booking->date }}</td>
+                                            <td>
+                                                 @foreach(explode(',',$booking->services) as $ser)
+                                                        <li>{{$service_model->service_data($ser)->name}}</li>
+                                                    @endforeach
+                                            </td>
                                             @if($booking->status =='0')
                                                 <td><button class="btn btn-danger">Not ready</button></td>
                                             @elseif($booking->status =='1')
@@ -44,8 +48,12 @@
 
                                             
                                             <td>
+                                                @if($booking->status !='2')
                                                 <a href="{{ action('OwnerController\BookingController@show',$booking->id) }}" class="btn"><i class="fa fa-pencil text-aqua"></i></a>
+                                                @endif
+                                                
                                             </td>
+
                                             
                                         </tr>
                                     @endforeach
@@ -54,6 +62,7 @@
                         @else
                             <blockquote><p>No Services till now added!!</p></blockquote>
                         @endif
+                        
                     </div>
                 </div>
             </div>

@@ -35,11 +35,10 @@
                                             @else
                                                 <td><button class="btn btn-success">Completed</button></td>
                                             @endif
-
-                                            
                                             <td>
-                                                <!-- <a href="{{ action('OwnerController\BookingController@show',$booking->id) }}" class="btn"><i class="fa fa-eye "></i></a> -->
-                                                <button type="button" class="btn btn-info" data-toggle="modal" data-target="#myModal"><i class="fa fa-eye "></i></button>
+                                                @foreach(explode(',',$booking->services) as $ser)
+                                                    <li>{{$service_model->service_data($ser)->name}}</li>
+                                                @endforeach
                                             </td>
                                             
                                         </tr>
@@ -49,28 +48,7 @@
                         @else
                             <blockquote><p>No Services till now added!!</p></blockquote>
                         @endif
-                        <div class="modal fade" id="myModal" role="dialog">
-                            <div class="modal-dialog">
-                            
-                              <!-- Modal content-->
-                              <div class="modal-content">
-                                <div class="modal-header">
-                                  <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                  <h4 class="modal-title">Services List</h4>
-                                </div>
-                                <div class="modal-body">
-                                     @foreach(explode(',',$booking->services) as $ser)
-                                        <p> # {{$service_model->service_data($ser)->name}}</p>
-                                    @endforeach
-                                  
-                                </div>
-                                <div class="modal-footer">
-                                  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                </div>
-                              </div>
-                              
-                            </div>
-                          </div>
+                       
                     </div>
                 </div>
             </div>

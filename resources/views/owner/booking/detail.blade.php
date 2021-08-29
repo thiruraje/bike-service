@@ -183,7 +183,12 @@ body{
             method: "post",
             data: { status: status_val ,booking_id:booking_id,"_token": "{{ csrf_token() }}" },
             success:function(data){
-                alert('Email sent successfully');
+                if(status_val == '1'){
+                    alert('Updated the status\nEmail sent successfully');
+                }else{
+                    alert('Updated the status');
+                }
+                
             },
             error:function(data){
                 alert('Email not send !!');

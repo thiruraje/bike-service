@@ -63,18 +63,25 @@ class BookingController extends Controller
              * Once the customer booked a service, send an email notification with details about th
                 service requested by the customer.
              */
+            $services_list = Service::whereIn('id', $request->get('services'))->get('name');
             $mail_booking_data = [
                 'name'  => auth()->user()->name,
                 'mobile' => auth()->user()->mobile,
-                'date' => $request->get('date')
+                'date' => $request->get('date'),
+                'services' => $services_list
             ]; 
             /**
              * In this Mail:sent() add the view blade 'mail' and from,to address with subject
              */
-            Mail::send(['html'=>'mail'], $mail_booking_data, function($message) { 
-                 $message->to('thiruscholar@gmail.com', 'Bike-service')->subject('Booking-alert');
-                 $message->from(auth()->user()->email,'Bike-Service'); 
-            });
+            try {
+                Mail::send(['html'=>'mail'], $mail_booking_data, function($message) { 
+                    $message->to('thiruscholar@gmail.com', 'Bike-service')->subject('Booking-alert');
+                    $message->from(auth()->user()->email,'Bike-Service'); 
+                });
+                    
+            } catch (Exception $e) {
+                
+            }
 
             return back()->with('success', ['Booking', 'Created Successfully!']);
         } catch (Exception $e) {
