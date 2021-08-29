@@ -1,0 +1,34 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+<script>
+    toastr.options.closeButton = true;
+</script>
+@if(count($errors))
+    <div class="form-group">
+        <div class="alert alert-danger">
+            <button type="button" class="close" data-dismiss="alert">×</button>
+            <h4><i class="icon fa fa-ban"></i>Alert!</h4>
+            @foreach($errors->all() as $error)
+                <p>{{ $error }}</p>
+            @endforeach
+        </div>
+    </div>
+@endif
+
+@if(Session::has('success'))
+    <script>
+        toastr.success('{{ Session::get('success')[0] }}', '{{ Session::get('success')[1] }}');
+    </script>
+@endif
+
+@if(Session::has('danger'))
+    <script>
+        toastr.error('{{ Session::get('danger') }}!');
+    </script>
+@endif
+
+@if(Session::has('sorry'))
+     <script>
+        toastr.warning('{{ Session::get('sorry') }}!');
+    </script>
+@endif
