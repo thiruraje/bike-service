@@ -44,6 +44,16 @@ Start the xampp server and create the database.
 
 Go into .env file change Database name,user name,password.Change the email credentials in the .enc file and config/mail.php file.
 ```bash
+MAIL_DRIVER=smtp
+MAIL_HOST=smtp.gmail.com
+MAIL_PORT=587
+MAIL_FROM_ADDRESS=YOUR_MAIL
+MAIL_USERNAME=YOUR_MAIL
+MAIL_PASSWORD=*****
+MAIL_ENCRYPTION=tls
+MAIL_FROM_NAME="Admin"
+```
+```bash
 php artisan migrate
 ```
 In the db:seed have a default owner user name and password.
